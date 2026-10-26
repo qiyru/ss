@@ -17,6 +17,15 @@ jobs:
         with:
           dotnet-version: 10.0.x
  
+      - name: Arrange files into src layout
+        shell: bash
+        run: |
+          if [ ! -d src ]; then
+            mkdir src
+            mv Merostrap.Macro vendor Directory.Build.props Merostrap.Macro.slnx global.json NuGet.Config src/
+          fi
+          ls -R src | head -40
+ 
       - name: Publish single-file exe
         run: >
           dotnet publish src/Merostrap.Macro/Merostrap.Macro.csproj
@@ -30,4 +39,3 @@ jobs:
           name: Merostrap-win-x64
           path: publish_out/Merostrap.Macro.exe
           if-no-files-found: error
- 
